@@ -5,8 +5,8 @@ import {
     showLoader,
     hideLoader, 
 } from './js/render-functions.js';
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 const loadMoreBtn = document.querySelector('[data-action="load-more"]');
 
@@ -63,29 +63,29 @@ form.addEventListener("submit", async event => {
 });
 
 
-loadMoreBtn.addEventListener("click", async () =>{
+loadMoreBtn.addEventListener("click", async () => {
     page+=1;
     showLoader();
 
     try{
-        const data = await fetchImages(query, page);              
+        const data = await fetchImages(query, page);
+        renderImages(data.hits);
+
         if (data.hits.length === 0 || page * 15 >= maxPages) {
+            hideLoadMoreButton();
             iziToast.info({
-            message: "We're sorry, but you've reached the end of search results.",
-            position: 'topRight',
+                message: "We're sorry, but you've reached the end of search results.",
+                position: 'topRight',
             });
-        loadMoreBtn.classList.add('hidden');
-    }
-    renderImages(data.hits);
-    smoothScroll();
+        } else {
+            smoothScroll();
+        }
     } catch(error) {
         iziToast.error({ title: 'Error', message: error.message });
     } finally {
         hideLoader();
     }
 });
-
-
 
 function smoothScroll() {
     const { height: cardHeight } = document

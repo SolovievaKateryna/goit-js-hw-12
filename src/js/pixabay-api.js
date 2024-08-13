@@ -1,4 +1,4 @@
-import axios from 'axios';   
+import axios from 'axios';
 
 const URL = "https://pixabay.com/api/";
 const API_KEY = "45296804-0fb55f0e1381bd4cbf585a7a5";    // ключ що отримала після реєстрації тут https://pixabay.com/api/docs/#api_search_images
